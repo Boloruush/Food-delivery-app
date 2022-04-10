@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/restaurant.dart';
+import 'package:flutter_application_1/screens/detail/detail.dart';
 import 'package:flutter_application_1/screens/home/widget/food_item.dart';
 
 class FoodListView extends StatelessWidget {
@@ -25,8 +26,14 @@ class FoodListView extends StatelessWidget {
         children: category
             .map((e) => ListView.separated(
                 padding: EdgeInsets.zero,
-                itemBuilder: (context, index) =>
-                    FoodItem(restaurant.menu[category[selected]]![index]),
+                itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DetialPage(
+                              restaurant.menu[category[selected]]![index])));
+                    },
+                    child:
+                        FoodItem(restaurant.menu[category[selected]]![index])),
                 separatorBuilder: (_, index) => SizedBox(height: 15),
                 itemCount: restaurant.menu[category[selected]]!.length))
             .toList(),
